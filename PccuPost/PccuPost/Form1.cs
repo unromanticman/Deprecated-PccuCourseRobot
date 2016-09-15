@@ -35,6 +35,10 @@ namespace PccuPost
         string ret = "";
         private System.Threading.Thread hackThread;
         private System.Diagnostics.Stopwatch sw;
+        private bool loginCheck = false;
+
+        EASYINI courseData; 
+
         public Form1()
         {
             InitializeComponent();
@@ -44,10 +48,111 @@ namespace PccuPost
             this.cc = new CookieContainer();
             this.spwc = new SpWebClient(cc);
             this.spwc.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.72 Safari/537.36");
-            //UM檔生成
-            this.cc2 = new CookieContainer();
-            this.spwcCandidate = new SpWebClient(cc2);
-            this.spwcCandidate.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.72 Safari/537.36");
+            //創立couse.um 儲存課程資料
+            courseData = new EASYINI(".//course.um");
+            //讀取檔案假如有的話
+            getCourseData();
+        }
+
+
+        public void getCourseData(){
+
+            try
+            {
+                a1.Text = courseData.getINI("course01", "01");
+                a2.Text = courseData.getINI("course01", "02");
+                a3.Text = courseData.getINI("course01", "03");
+                a4.Text = courseData.getINI("course01", "04");
+                a5.Text = courseData.getINI("course01", "05");
+
+                b1.Text = courseData.getINI("course02", "01");
+                b2.Text = courseData.getINI("course02", "02");
+                b3.Text = courseData.getINI("course02", "03");
+                b4.Text = courseData.getINI("course02", "04");
+                b5.Text = courseData.getINI("course02", "05");
+
+                c1.Text = courseData.getINI("course03", "01");
+                c2.Text = courseData.getINI("course03", "02");
+                c3.Text = courseData.getINI("course03", "03");
+                c4.Text = courseData.getINI("course03", "04");
+                c5.Text = courseData.getINI("course03", "05");
+
+                d1.Text = courseData.getINI("course04", "01");
+                d2.Text = courseData.getINI("course04", "02");
+                d3.Text = courseData.getINI("course04", "03");
+                d4.Text = courseData.getINI("course04", "04");
+                d5.Text = courseData.getINI("course04", "05");
+
+                e1.Text = courseData.getINI("course05", "01");
+                e2.Text = courseData.getINI("course05", "02");
+                e3.Text = courseData.getINI("course05", "03");
+                e4.Text = courseData.getINI("course05", "04");
+                e5.Text = courseData.getINI("course05", "05");
+
+                f1.Text = courseData.getINI("course06", "01");
+                f2.Text = courseData.getINI("course06", "02");
+                f3.Text = courseData.getINI("course06", "03");
+                f4.Text = courseData.getINI("course06", "04");
+                f5.Text = courseData.getINI("course06", "05");
+
+
+                g1.Text = courseData.getINI("course07", "01");
+                g2.Text = courseData.getINI("course07", "02");
+                g3.Text = courseData.getINI("course07", "03");
+                g4.Text = courseData.getINI("course07", "04");
+                g5.Text = courseData.getINI("course07", "05");
+            }
+            catch (Exception ex)
+            {
+
+            }
+          
+
+        }
+        public void setCourseData(){
+
+            courseData.setINI("course01","01",a1.Text);
+            courseData.setINI("course01","02",a2.Text);
+            courseData.setINI("course01","03",a3.Text);
+            courseData.setINI("course01","04",a4.Text);
+            courseData.setINI("course01","05",a5.Text);
+
+            courseData.setINI("course02", "01", b1.Text);
+            courseData.setINI("course02", "02", b2.Text);
+            courseData.setINI("course02", "03", b3.Text);
+            courseData.setINI("course02", "04", b4.Text);
+            courseData.setINI("course02", "05", b5.Text);
+
+            courseData.setINI("course03", "01", c1.Text);
+            courseData.setINI("course03", "02", c2.Text);
+            courseData.setINI("course03", "03", c3.Text);
+            courseData.setINI("course03", "04", c4.Text);
+            courseData.setINI("course03", "05", c5.Text);
+
+            courseData.setINI("course04", "01", d1.Text);
+            courseData.setINI("course04", "02", d2.Text);
+            courseData.setINI("course04", "03", d3.Text);
+            courseData.setINI("course04", "04", d4.Text);
+            courseData.setINI("course04", "05", d5.Text);
+
+            courseData.setINI("course05", "01", e1.Text);
+            courseData.setINI("course05", "02", e2.Text);
+            courseData.setINI("course05", "03", e3.Text);
+            courseData.setINI("course05", "04", e4.Text);
+            courseData.setINI("course05", "05", e5.Text);
+
+            courseData.setINI("course06", "01", f1.Text);
+            courseData.setINI("course06", "02", f2.Text);
+            courseData.setINI("course06", "03", f3.Text);
+            courseData.setINI("course06", "04", f4.Text);
+            courseData.setINI("course06", "05", f5.Text);
+
+            courseData.setINI("course07", "01", g1.Text);
+            courseData.setINI("course07", "02", g2.Text);
+            courseData.setINI("course07", "03", g3.Text);
+            courseData.setINI("course07", "04", g4.Text);
+            courseData.setINI("course07", "05", g5.Text);
+
         }
 
         private void startHack()
@@ -59,8 +164,22 @@ namespace PccuPost
             data.Add("PrjLangType", "");
 
             ret = Encoding.UTF8.GetString(spwc.UploadValues("https://mycourse.pccu.edu.tw/SCASele/login/lsChkLogin.asp", data));
+
             str = ret.Substring(ret.IndexOf("ApGUID={") + 7);
             str = str.Substring(0, str.IndexOf("}") + 1);
+
+            if (str.Length > 0)
+            {
+                label20.Text = "登入成功";
+                label20.ForeColor = Color.Green;
+            }
+            else
+            {
+                label20.Text = "登入失敗";
+                label20.ForeColor = Color.Red;
+                hackThread.Abort();
+            }
+
 
             ret = Encoding.Default.GetString(spwc.UploadValues("https://mycourse.pccu.edu.tw/ScaSele/frame/apMain.asp?ApGUID=" + str + "&SeleLoginServer=mycourse", data));
             ret = spwc.DownloadString("https://mycourse.pccu.edu.tw/ScaSele/student/index.asp?ApGUID=" + str + "&SeleLoginServer=mycourse");
@@ -85,7 +204,7 @@ namespace PccuPost
                 ret = spwc.DownloadString("https://mycourse.pccu.edu.tw/SCASele/Student/SeleAdd.asp?QuerySource=SeleByStudent&ApGUID=" + str + "&SeleLoginServer=mycourse&CourseCode=" + hackData[0].value + "&MaintainType=Add");
                 if (ret.Contains("加選課程成功"))
                 {
-                    listBox1.Items.Add("value -" + hackData[0].value + "代碼 :" + hackData[0].firstCode + "[" + hackData[0].endCode + "]" + " 加選成功!");
+                    listBox2.Items.Add("value -" + hackData[0].value + "代碼 :" + hackData[0].firstCode + "[" + hackData[0].endCode + "]" + " 加選成功!");
                 }
             }
             catch (Exception e)
@@ -105,7 +224,7 @@ namespace PccuPost
                 ret = spwc.DownloadString("https://mycourse.pccu.edu.tw/SCASele/Student/SeleAdd.asp?QuerySource=SeleByStudent&ApGUID=" + str + "&SeleLoginServer=mycourse&CourseCode=" + hackData[1].value + "&MaintainType=Add");
                 if (ret.Contains("加選課程成功"))
                 {
-                    listBox1.Items.Add("value -" + hackData[1].value + "代碼 :" + hackData[1].firstCode + "[" + hackData[1].endCode + "]" + " 加選成功!");
+                    listBox2.Items.Add("value -" + hackData[1].value + "代碼 :" + hackData[1].firstCode + "[" + hackData[1].endCode + "]" + " 加選成功!");
                 }
             }
             catch (Exception e)
@@ -125,7 +244,7 @@ namespace PccuPost
                 ret = spwc.DownloadString("https://mycourse.pccu.edu.tw/SCASele/Student/SeleAdd.asp?QuerySource=SeleByStudent&ApGUID=" + str + "&SeleLoginServer=mycourse&CourseCode=" + hackData[2].value + "&MaintainType=Add");
                 if (ret.Contains("加選課程成功"))
                 {
-                    listBox1.Items.Add("value -" + hackData[2].value + "代碼 :" + hackData[2].firstCode + "[" + hackData[2].endCode + "]" + " 加選成功!");
+                    listBox2.Items.Add("value -" + hackData[2].value + "代碼 :" + hackData[2].firstCode + "[" + hackData[2].endCode + "]" + " 加選成功!");
                 }
             }
             catch (Exception e)
@@ -145,7 +264,7 @@ namespace PccuPost
                 ret = spwc.DownloadString("https://mycourse.pccu.edu.tw/SCASele/Student/SeleAdd.asp?QuerySource=SeleByStudent&ApGUID=" + str + "&SeleLoginServer=mycourse&CourseCode=" + hackData[3].value + "&MaintainType=Add");
                 if (ret.Contains("加選課程成功"))
                 {
-                    listBox1.Items.Add("value -" + hackData[3].value + "代碼 :" + hackData[3].firstCode + "[" + hackData[3].endCode + "]" + " 加選成功!");
+                    listBox2.Items.Add("value -" + hackData[3].value + "代碼 :" + hackData[3].firstCode + "[" + hackData[3].endCode + "]" + " 加選成功!");
                 }
             }
             catch (Exception e)
@@ -165,7 +284,7 @@ namespace PccuPost
                 ret = spwc.DownloadString("https://mycourse.pccu.edu.tw/SCASele/Student/SeleAdd.asp?QuerySource=SeleByStudent&ApGUID=" + str + "&SeleLoginServer=mycourse&CourseCode=" + hackData[4].value + "&MaintainType=Add");
                 if (ret.Contains("加選課程成功"))
                 {
-                    listBox1.Items.Add("value -" + hackData[4].value + "代碼 :" + hackData[4].firstCode + "[" + hackData[4].endCode + "]" + " 加選成功!");
+                    listBox2.Items.Add("value -" + hackData[4].value + "代碼 :" + hackData[4].firstCode + "[" + hackData[4].endCode + "]" + " 加選成功!");
                 }
             }
             catch (Exception e)
@@ -185,7 +304,7 @@ namespace PccuPost
                 ret = spwc.DownloadString("https://mycourse.pccu.edu.tw/SCASele/Student/SeleAdd.asp?QuerySource=SeleByStudent&ApGUID=" + str + "&SeleLoginServer=mycourse&CourseCode=" + hackData[5].value + "&MaintainType=Add");
                 if (ret.Contains("加選課程成功"))
                 {
-                    listBox1.Items.Add("value -" + hackData[5].value + "代碼 :" + hackData[5].firstCode + "[" + hackData[5].endCode + "]" + " 加選成功!");
+                    listBox2.Items.Add("value -" + hackData[5].value + "代碼 :" + hackData[5].firstCode + "[" + hackData[5].endCode + "]" + " 加選成功!");
                 }
             }
             catch (Exception e)
@@ -205,7 +324,7 @@ namespace PccuPost
                 ret = spwc.DownloadString("https://mycourse.pccu.edu.tw/SCASele/Student/SeleAdd.asp?QuerySource=SeleByStudent&ApGUID=" + str + "&SeleLoginServer=mycourse&CourseCode=" + hackData[6].value + "&MaintainType=Add");
                 if (ret.Contains("加選課程成功"))
                 {
-                    listBox1.Items.Add("value -" + hackData[6].value + "代碼 :" + hackData[6].firstCode + "[" + hackData[6].endCode + "]" + " 加選成功!");
+                    listBox2.Items.Add("value -" + hackData[6].value + "代碼 :" + hackData[6].firstCode + "[" + hackData[6].endCode + "]" + " 加選成功!");
                 }
             }
             catch (Exception e)
@@ -276,7 +395,7 @@ namespace PccuPost
                 hackData.Add(new Data() { value = g1.Text, department = g2.Text, openClass = g3.Text, firstCode = g4.Text, endCode = g5.Text });
             }
 
-            listBox1.Items.Add("填寫選課共" + (hackData.Count) + "筆");
+            listBox1.Items.Add("共填寫選課" + (hackData.Count) + "筆，執行中...");
 
             //執行搶課線程
             hackThread.Start();
@@ -296,7 +415,7 @@ namespace PccuPost
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            //http://imgur.com/H4KdVPO
+            MessageBox.Show("http://imgur.com/H4KdVPO");
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -323,6 +442,11 @@ namespace PccuPost
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("http://never-nop.com");
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            setCourseData();
         }
     }
 }

@@ -45,9 +45,10 @@ namespace PccuPost
 
         protected override WebResponse GetWebResponse(WebRequest request)
         {
-            WebResponse response = base.GetWebResponse(request);
-            this.ResponseUri = response.ResponseUri;
-            return response;
+                WebResponse response = base.GetWebResponse(request);
+                this.ResponseUri = response.ResponseUri;
+                return response;
+        
         }
     }
 }

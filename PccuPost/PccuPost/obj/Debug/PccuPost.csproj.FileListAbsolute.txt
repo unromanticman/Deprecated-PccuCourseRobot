@@ -16,3 +16,12 @@ H:\Projects\Crack\s\PccuPost\PccuPost\obj\Debug\PccuPost.csprojResolveAssemblyRe
 H:\Projects\Crack\s\PccuPost\PccuPost\obj\Debug\PccuPost.Form1.resources
 H:\Projects\Crack\s\PccuPost\PccuPost\obj\Debug\PccuPost.Properties.Resources.resources
 H:\Projects\Crack\s\PccuPost\PccuPost\obj\Debug\PccuPost.csproj.GenerateResource.Cache
+C:\Users\um\Desktop\PccuCourseRobot-master\PccuCourseRobot-master\PccuPost\PccuPost\bin\Debug\PccuPost.exe.config
+C:\Users\um\Desktop\PccuCourseRobot-master\PccuCourseRobot-master\PccuPost\PccuPost\obj\Debug\PccuPost.exe
+C:\Users\um\Desktop\PccuCourseRobot-master\PccuCourseRobot-master\PccuPost\PccuPost\obj\Debug\PccuPost.pdb
+C:\Users\um\Desktop\PccuCourseRobot-master\PccuCourseRobot-master\PccuPost\PccuPost\bin\Debug\PccuPost.exe
+C:\Users\um\Desktop\PccuCourseRobot-master\PccuCourseRobot-master\PccuPost\PccuPost\bin\Debug\PccuPost.pdb
+C:\Users\um\Desktop\PccuCourseRobot-master\PccuCourseRobot-master\PccuPost\PccuPost\obj\Debug\PccuPost.csprojResolveAssemblyReference.cache
+C:\Users\um\Desktop\PccuCourseRobot-master\PccuCourseRobot-master\PccuPost\PccuPost\obj\Debug\PccuPost.Form1.resources
+C:\Users\um\Desktop\PccuCourseRobot-master\PccuCourseRobot-master\PccuPost\PccuPost\obj\Debug\PccuPost.Properties.Resources.resources
+C:\Users\um\Desktop\PccuCourseRobot-master\PccuCourseRobot-master\PccuPost\PccuPost\obj\Debug\PccuPost.csproj.GenerateResource.Cache
