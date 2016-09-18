@@ -162,6 +162,8 @@ namespace PccuPost
         {
             while (isStartHackWorking == true)
             {
+                listBox1.Items.Add("共填寫選課" + (hackData.Count) + "筆，執行中...");
+
                 NameValueCollection data = new NameValueCollection();
 
                 data.Add("Account", ID.Text);
@@ -199,22 +201,36 @@ namespace PccuPost
 
                 try
                 {
-                    for (int hackDataIndex = 0; hackDataIndex < 6; hackDataIndex++)
+                    foreach(Data hackDataCursor in hackData)
                     {
-                    
-                            //取得課程名稱
-                            data.Add("chkCourseCode", hackData[hackDataIndex].value + "," + hackData[hackDataIndex].department + "," + hackData[hackDataIndex].openClass + " ," + hackData[hackDataIndex].firstCode + "," + hackData[hackDataIndex].endCode);
-                            ret = Encoding.UTF8.GetString(spwc.UploadValues("https://mycourse.pccu.edu.tw/SCASele/Student/SeleAddConfirm.asp?QuerySource=SeleByStudent&ApGUID=" + str + "&SeleLoginServer=mycourse&MaintainType=Add", data));
-                            //沒有課程名稱
-                            data.Clear();
-                            ret = spwc.DownloadString("https://mycourse.pccu.edu.tw/ScaSele/student/SeleList.asp?prjno=lvMainMenuIndex=0&QuerySource=SeleByStudent&ApGuid=" + str + "&SeleLoginServer=mycourse");
-                            ret = spwc.DownloadString("https://mycourse.pccu.edu.tw/SCASele/Student/SeleAdd.asp?QuerySource=SeleByStudent&ApGUID=" + str + "&SeleLoginServer=mycourse&CourseCode=" + hackData[hackDataIndex].value + "&MaintainType=Add");
-                            if (ret.Contains("加選課程成功"))
-                            {
-                                listBox2.Items.Add("value -" + hackData[hackDataIndex].value + "代碼 :" + hackData[hackDataIndex].firstCode + "[" + hackData[hackDataIndex].endCode + "]" + " 加選成功!");
-                            }
-                    
+                        //取得課程名稱
+                        data.Add("chkCourseCode", hackDataCursor.value + "," + hackDataCursor.department + "," + hackDataCursor.openClass + " ," + hackDataCursor.firstCode + "," + hackDataCursor.endCode);
+                        ret = Encoding.UTF8.GetString(spwc.UploadValues("https://mycourse.pccu.edu.tw/SCASele/Student/SeleAddConfirm.asp?QuerySource=SeleByStudent&ApGUID=" + str + "&SeleLoginServer=mycourse&MaintainType=Add", data));
+                        //沒有課程名稱
+                        data.Clear();
+                        ret = spwc.DownloadString("https://mycourse.pccu.edu.tw/ScaSele/student/SeleList.asp?prjno=lvMainMenuIndex=0&QuerySource=SeleByStudent&ApGuid=" + str + "&SeleLoginServer=mycourse");
+                        ret = spwc.DownloadString("https://mycourse.pccu.edu.tw/SCASele/Student/SeleAdd.asp?QuerySource=SeleByStudent&ApGUID=" + str + "&SeleLoginServer=mycourse&CourseCode=" + hackDataCursor.value + "&MaintainType=Add");
+                        if (ret.Contains("加選課程成功"))
+                        {
+                            listBox2.Items.Add("value -" + hackDataCursor.value + "代碼 :" + hackDataCursor.firstCode + "[" + hackDataCursor.endCode + "]" + " 加選成功!");
+                        }
                     }
+
+                    //for (int hackDataIndex = 0; hackDataIndex < 6; hackDataIndex++)
+                    //{
+                    
+                    //        //取得課程名稱
+                    //        data.Add("chkCourseCode", hackData[hackDataIndex].value + "," + hackData[hackDataIndex].department + "," + hackData[hackDataIndex].openClass + " ," + hackData[hackDataIndex].firstCode + "," + hackData[hackDataIndex].endCode);
+                    //        ret = Encoding.UTF8.GetString(spwc.UploadValues("https://mycourse.pccu.edu.tw/SCASele/Student/SeleAddConfirm.asp?QuerySource=SeleByStudent&ApGUID=" + str + "&SeleLoginServer=mycourse&MaintainType=Add", data));
+                    //        //沒有課程名稱
+                    //        data.Clear();
+                    //        ret = spwc.DownloadString("https://mycourse.pccu.edu.tw/ScaSele/student/SeleList.asp?prjno=lvMainMenuIndex=0&QuerySource=SeleByStudent&ApGuid=" + str + "&SeleLoginServer=mycourse");
+                    //        ret = spwc.DownloadString("https://mycourse.pccu.edu.tw/SCASele/Student/SeleAdd.asp?QuerySource=SeleByStudent&ApGUID=" + str + "&SeleLoginServer=mycourse&CourseCode=" + hackData[hackDataIndex].value + "&MaintainType=Add");
+                    //        if (ret.Contains("加選課程成功"))
+                    //        {
+                    //            listBox2.Items.Add("value -" + hackData[hackDataIndex].value + "代碼 :" + hackData[hackDataIndex].firstCode + "[" + hackData[hackDataIndex].endCode + "]" + " 加選成功!");
+                    //        }                    
+                    //}
                 }
                 catch (Exception e)
                 {
@@ -299,9 +315,7 @@ namespace PccuPost
                 if (g1.Text != "")
                 {
                     hackData.Add(new Data() { value = g1.Text, department = g2.Text, openClass = g3.Text, firstCode = g4.Text, endCode = g5.Text });
-                }
-
-                listBox1.Items.Add("共填寫選課" + (hackData.Count) + "筆，執行中...");
+                } 
 
                 //執行搶課線程
                 hackThread.Start();                
