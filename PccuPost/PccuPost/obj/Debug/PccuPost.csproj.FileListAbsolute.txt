@@ -25,3 +25,12 @@ C:\Users\um\Desktop\PccuCourseRobot-master\PccuCourseRobot-master\PccuPost\PccuP
 C:\Users\um\Desktop\PccuCourseRobot-master\PccuCourseRobot-master\PccuPost\PccuPost\obj\Debug\PccuPost.Form1.resources
 C:\Users\um\Desktop\PccuCourseRobot-master\PccuCourseRobot-master\PccuPost\PccuPost\obj\Debug\PccuPost.Properties.Resources.resources
 C:\Users\um\Desktop\PccuCourseRobot-master\PccuCourseRobot-master\PccuPost\PccuPost\obj\Debug\PccuPost.csproj.GenerateResource.Cache
+D:\BlueKnight\workspace\GitHub\PccuCourseRobot\PccuPost\PccuPost\bin\Debug\PccuPost.exe.config
+D:\BlueKnight\workspace\GitHub\PccuCourseRobot\PccuPost\PccuPost\obj\Debug\PccuPost.exe
+D:\BlueKnight\workspace\GitHub\PccuCourseRobot\PccuPost\PccuPost\obj\Debug\PccuPost.pdb
+D:\BlueKnight\workspace\GitHub\PccuCourseRobot\PccuPost\PccuPost\bin\Debug\PccuPost.exe
+D:\BlueKnight\workspace\GitHub\PccuCourseRobot\PccuPost\PccuPost\bin\Debug\PccuPost.pdb
+D:\BlueKnight\workspace\GitHub\PccuCourseRobot\PccuPost\PccuPost\obj\Debug\PccuPost.csprojResolveAssemblyReference.cache
+D:\BlueKnight\workspace\GitHub\PccuCourseRobot\PccuPost\PccuPost\obj\Debug\PccuPost.Form1.resources
+D:\BlueKnight\workspace\GitHub\PccuCourseRobot\PccuPost\PccuPost\obj\Debug\PccuPost.Properties.Resources.resources
+D:\BlueKnight\workspace\GitHub\PccuCourseRobot\PccuPost\PccuPost\obj\Debug\PccuPost.csproj.GenerateResource.Cache
