@@ -23,19 +23,16 @@ namespace PccuPost
             public string firstCode;
             public string endCode;
         }
-        //int flag = 0;//未啟動
+
         List<Data> hackData = new List<Data>();
 
-        private static int CodeCount = 0;
-        private CookieContainer cc, cc2;
-        private SpWebClient spwc, spwcCandidate;
-        private string webtoken, webtoken_id;
-        String login_url = "https://ap1.pccu.edu.tw/newAp/Login/securityForm/lsChkLogin.asp";
+        private CookieContainer cc;
+        private SpWebClient spwc;
+        private string webtoken;
         string str = "";
         string ret = "";
         private System.Threading.Thread hackThread;
         private System.Diagnostics.Stopwatch sw;
-        private bool loginCheck = false;
 
         //Start working or not
         private volatile bool isStartHackWorking = false;
@@ -184,6 +181,10 @@ namespace PccuPost
                 {
                     label20.Text = "登入失敗";
                     label20.ForeColor = Color.Red;
+                    MessageBox.Show("登入失敗，請再次確認帳號密碼是否正確!");
+                    button1.Text = "機器人開始搶課";
+                    listBox1.Items.Add("<已停止搶課>");
+                    isStartHackWorking = false;
                     hackThread.Abort();
                 }
 
@@ -193,7 +194,7 @@ namespace PccuPost
                 CookieCollection cookies = cc.GetCookies(new Uri("https://mycourse.pccu.edu.tw/ScaSele/login/lsSetSession.asp?ApGUID=" + str + "&SeleLoginServer=mycourse"));
                 foreach (Cookie cookie in cookies)
                 {
-                    Console.WriteLine(cookie.Value);
+                    //Console.WriteLine(cookie.Value);
                     if (cookie.Name == "ASPSESSIONIDSGRDBTCC")
                         this.webtoken = cookie.Value;
                 }
@@ -206,7 +207,6 @@ namespace PccuPost
                         //取得課程名稱
                         data.Add("chkCourseCode", hackDataCursor.value + "," + hackDataCursor.department + "," + hackDataCursor.openClass + " ," + hackDataCursor.firstCode + "," + hackDataCursor.endCode);
                         ret = Encoding.UTF8.GetString(spwc.UploadValues("https://mycourse.pccu.edu.tw/SCASele/Student/SeleAddConfirm.asp?QuerySource=SeleByStudent&ApGUID=" + str + "&SeleLoginServer=mycourse&MaintainType=Add", data));
-                        //沒有課程名稱
                         data.Clear();
                         ret = spwc.DownloadString("https://mycourse.pccu.edu.tw/ScaSele/student/SeleList.asp?prjno=lvMainMenuIndex=0&QuerySource=SeleByStudent&ApGuid=" + str + "&SeleLoginServer=mycourse");
                         ret = spwc.DownloadString("https://mycourse.pccu.edu.tw/SCASele/Student/SeleAdd.asp?QuerySource=SeleByStudent&ApGUID=" + str + "&SeleLoginServer=mycourse&CourseCode=" + hackDataCursor.value + "&MaintainType=Add");
@@ -257,12 +257,11 @@ namespace PccuPost
             ////data.Add("AddSele", "�T�w�[��");
             //ret = spwc.DownloadString("https://mycourse.pccu.edu.tw/SCASele/Student/SeleAdd.asp?QuerySource=SeleByStudent&ApGUID=" + str + "&SeleLoginServer=mycourse&CourseCode=270697&MaintainType=Add");
             
-            //flag = 1;//執行完畢
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if(isStartHackWorking == true)
+            if(isStartHackWorking)
             {
                 isStartHackWorking = false;
                 sw.Stop();
@@ -349,18 +348,6 @@ namespace PccuPost
             catch (Exception ex) { }
         }
 
-        //unused
-        /*
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            if (checkBox1.Enabled)//&&flag == 1)
-            {
-                button1.Enabled = true;
-                button1.PerformClick();
-                //flag = 0;
-            }
-        }
-        */
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
